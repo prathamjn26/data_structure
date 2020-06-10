@@ -7,12 +7,12 @@ int linearSearch(int arr[],int startIndex,int endIndex,int ele)
 	{
 		if(arr[i]==ele)
 		{
-//			int x=arr[i];
-//			arr[i]=arr[i-1];
-//			arr[i-1]=x;
+			int x=arr[i];
+			arr[i-1]=x;
+			arr[i]=arr[i-1];
 			return i;
-			
 		}
+
 	}
 	return -1;
 }

@@ -38,3 +38,14 @@ int main()
 	int arr1[]={1,6,2,78,23,45,76,3,4,11};
 	bubble_Sort(arr1,10);
 }
+
+//worst case
+//time complexity:o(n2)
+//space complexity:o(n2)
+
+//best case
+//time complexity :o(n)
+//space commplexity:o(1)
+
+//It is not adaptive
+//It is stable

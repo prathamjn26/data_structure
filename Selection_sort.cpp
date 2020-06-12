@@ -37,5 +37,5 @@ int main()
 //time complexity :o(n2)
 //space commplexity:o(1)
 
-//It is 
-//It is stable
+//It is not adaptive
+//It is not stable

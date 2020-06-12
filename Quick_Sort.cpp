@@ -47,3 +47,5 @@ int main()
 //best case
 //time complexity :o(nlog(n))
 
+//not adaptive
+//not stable

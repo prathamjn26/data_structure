@@ -112,11 +112,94 @@ void insert()
 	}
 }
 
+void delete1()
+{
+	int pos,n;
+	struct student *ptr,*ptr1;
+	printf("Enter position who you want to delete:\n");
+	scanf("%d",&pos);
+	n=count(start);
+	if(pos<0||pos>n+1)
+		printf("\nInvalid Position\n");
+		
+	if(pos==1)
+	{
+		ptr=start;
+		start=start->next;
+		free(ptr);
+		ptr=NULL;
+	}
+	else{
+		ptr=start;
+		for(int c=0;c<pos-2;c++)
+			ptr=ptr->next;
+		ptr1=ptr->next;
+		ptr->next=ptr->next->next;
+		free(ptr1);
+		ptr1=NULL;
+	}
+}
+
+void update()
+{
+	int pos,c,n,rollno,age;
+	struct student *ptr;
+	printf("Enter position that you wany to update:\n");
+	scanf("%d",&pos);
+	n=count(start);
+	if(pos<0||pos>n+1)
+		printf("Invalid position\n");
+	printf("Enter the rollno:\n");
+	scanf("%d",&rollno);
+	printf("\nEnter the age:\n");
+	scanf("%d",&age);
+	if(pos==1)
+	{
+		ptr=start;
+		ptr->rollno=rollno;
+		ptr->age=age;
+	}
+	else{
+		for(c=0,ptr=start;c<pos-1;c++)
+			ptr=ptr->next;
+		ptr->rollno=rollno;
+		ptr->age=age;
+	}
+}
+
 int main()
 {
-	add();
-	rdisplay(start);
-	insert();
-	rdisplay(start);
-	return 0;
+	int ch;
+	while(1)
+	{
+		printf("\n1. Add node");
+		printf("\n2. Display");
+		printf("\n3. Recursive display");
+		printf("\n4. Insert node");
+		printf("\n5. Delete node");
+		printf("\n6. Upadate node");
+		printf("\n7. Count node");
+		printf("\n8. Exit");
+		printf("\nEnter your choice:\n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1: add();
+				break;
+			case 2: display(start);
+				break;
+			case 3: rdisplay(start);
+				break;
+			case 4: insert();
+				break;
+			case 5:delete1();
+				break;
+			case 6:update();
+				break;
+			case 7:printf("\n no. of nodes=%d",count(start));
+				break;
+			case 8:return 0;
+			default: printf("\n Invalid option");
+		}
+	}
 }

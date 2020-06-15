@@ -167,6 +167,46 @@ void update()
 	}
 }
 
+int sumAge(struct student*ptr)
+{
+	int sum=0;
+	while(ptr!=NULL)
+	{
+		sum=sum+ptr->age;
+		ptr=ptr->next;
+	}
+	return sum;
+}
+
+void reverse(){
+	struct student *ptr=start,*ptr1=NULL,*ptr2=NULL;
+	while(ptr)
+	{
+		ptr2=ptr->next;
+		ptr->next=ptr1;
+		ptr1=ptr;
+		ptr=ptr2;
+	}
+	start=ptr1;
+}
+
+void updateByRollno()
+{
+	int rn;
+	struct student* ptr;
+	printf("\nEnter the Rollno whose data you want to update:");
+	scanf("%d",&rn);
+	ptr=start;
+	while(ptr->rollno!=rn)
+	{
+		ptr=ptr->next;
+	}
+	printf("\nEnter new rollno:");
+	scanf("%d",&ptr->rollno);
+	printf("\nEnter new Age:");
+	scanf("%d",&ptr->age);
+}
+
 int main()
 {
 	int ch;
@@ -179,7 +219,10 @@ int main()
 		printf("\n5. Delete node");
 		printf("\n6. Upadate node");
 		printf("\n7. Count node");
-		printf("\n8. Exit");
+		printf("\n8. Sum age");
+		printf("\n9. Update by rollno.");
+		printf("\n10. Reverse");
+		printf("\n10. Exit");
 		printf("\nEnter your choice:\n");
 		scanf("%d",&ch);
 		switch(ch)
@@ -196,10 +239,16 @@ int main()
 				break;
 			case 6:update();
 				break;
-			case 7:printf("\n no. of nodes=%d",count(start));
+			case 7:printf("\nno. of nodes=%d\n",count(start));
 				break;
-			case 8:return 0;
-			default: printf("\n Invalid option");
+			case 8:printf("\nSum of ages=%d\n",sumAge(start));
+				break;
+			case 9: updateByRollno();
+				break;
+			case 10:reverse();
+				break;
+			case 11:return 0;
+			default: printf("\nInvalid option");
 		}
 	}
 }

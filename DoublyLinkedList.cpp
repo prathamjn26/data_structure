@@ -166,16 +166,84 @@ void update()
 
 void delete1()
 {
-	
+	int pos,n,c;
+	struct student *ptr;
+	n=count(start);
+	printf("\nEnter node which you want to delete: ");
+	scanf("%d",&pos);
+	if(pos<=0||pos>n+1)
+		printf("\nInvalid position");	
+	else{
+		if(pos==1)
+		{
+			ptr=start;
+			start->next->pre=NULL;
+			start=start->next;
+			free(ptr);
+			ptr=NULL;
+		}
+		else{
+			ptr=start;
+			c=0;
+			while(pos-1>c)
+			{
+				ptr=ptr->next;
+				c++;
+			}
+			if(ptr->next==NULL)
+			{
+				ptr->pre->next=NULL;
+				free(ptr);
+				ptr=NULL;
+			}
+			else{
+				ptr->next->pre=ptr->pre;
+				ptr->pre->next=ptr->next;
+				free(ptr);
+				ptr=NULL;
+			}
+		}
+	}
 }
 
 int main()
 {
-	add();
-	fdisplay(start);
-	insert();
-	fdisplay(start);
-	update();
-	fdisplay(start);
-	return 0;	
+	char ch;
+	while(1)
+	{
+		printf("\n1:add");
+		printf("\n2:display");
+		printf("\n3:recursive display");
+		printf("\n4:reverse display");
+		printf("\n5:insert");
+		printf("\n6:delete");
+		printf("\n7:update");	
+		printf("\n8:count node");
+		printf("\n9:EXIT");
+		printf("\n\nEnter your choice:");
+		scanf("%d",&ch);
+		printf("\n");
+		switch(ch)
+		{
+			case 1: add();
+			break;
+			case 2: fdisplay(start);
+			break;
+			case 3: recursiveDisplay(start);
+			break;			
+			case 4: rdisplay(start);
+			break;	
+			case 5: insert();
+			break;
+			case 6: delete1();
+			break;
+			case 7: update();
+			break;
+			case 8: printf("\nNo of node is:%d",count(start));
+			break;
+			case 9: return 0;
+			default: printf("\nInvalid Option");			
+		}
+	}
 }
+

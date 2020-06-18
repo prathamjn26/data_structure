@@ -26,9 +26,9 @@ void add()
 	struct student* p1;
 	struct student* ptr;
 	do{
-		printf("\n Enter rollno:");
+		printf("\nEnter rollno: ");
 		scanf("%d",&rollno);
-		printf("\n Enter age:");
+		printf("\nEnter age: ");
 		scanf("%d",&age);
 		p1=nn(rollno,age);
 		if(start==NULL)
@@ -40,7 +40,7 @@ void add()
 				ptr=ptr->next;
 			ptr->next=p1;
 		}
-		printf("\n Do you want to add more node?(y/n): ");
+		printf("\nDo you want to add more node?(y/n): ");
 		fflush(stdin);
 		ch=getchar();
 	}while(ch=='y');
@@ -49,7 +49,7 @@ void add()
 void display(struct student* ptr)
 {
 	if(ptr==NULL)
-		printf("\n List is empty");
+		printf("\nList is empty");
 	else
 	{
 		for(;ptr!=NULL;ptr=ptr->next)
@@ -81,23 +81,21 @@ void insert()
 {
 	int pos,rollno,age,n,c;
 	struct student *ptr1,*ptr;
-	printf("\nEnter position: \n");
+	printf("\nEnter position: ");
 	scanf("%d",&pos);
 	n=count(start);
-	printf("pos: %d",pos);
 	if(pos<0||pos>n+1)	
 		printf("\nInvalid Position");
 	else{
-		printf("\n Enter Rollno: ");
-		scanf("\n%d",&rollno);
-		printf("\nEnter age:");
-		scanf("\n%d",&age);
+		printf("\nEnter Rollno: ");
+		scanf("%d",&rollno);
+		printf("\nEnter age: ");
+		scanf("%d",&age);
 		ptr=nn(rollno,age);
 		if(pos==1)
 		{
 			ptr->next=start;
 			start=ptr;
-			printf("first");
 		}
 		else{
 			ptr1=start;
@@ -107,7 +105,6 @@ void insert()
 			}
 			ptr->next=ptr1->next;
 			ptr1->next=ptr;
-			printf("second");
 		}
 	}
 }
@@ -116,7 +113,7 @@ void delete1()
 {
 	int pos,n;
 	struct student *ptr,*ptr1;
-	printf("Enter position who you want to delete:\n");
+	printf("\nEnter position who you want to delete: ");
 	scanf("%d",&pos);
 	n=count(start);
 	if(pos<0||pos>n+1)
@@ -149,9 +146,9 @@ void update()
 	n=count(start);
 	if(pos<0||pos>n+1)
 		printf("Invalid position\n");
-	printf("Enter the rollno:\n");
+	printf("\nEnter the rollno: ");
 	scanf("%d",&rollno);
-	printf("\nEnter the age:\n");
+	printf("\nEnter the age: ");
 	scanf("%d",&age);
 	if(pos==1)
 	{
@@ -207,6 +204,105 @@ void updateByRollno()
 	scanf("%d",&ptr->age);
 }
 
+void middle(struct student *ptr)
+{
+	struct student *ptr1=ptr;
+	while(ptr&&ptr->next)
+	{
+		ptr=ptr->next->next;
+		if(ptr)
+			ptr1=ptr1->next;
+	}
+	printf("%d---->%d",ptr1->rollno,ptr1->age);
+}
+
+void deleteByRollno()
+{
+	int rollno;
+	struct student *ptr,*ptr1;
+	printf("\nEnter rollno which data you want to delete: ");
+	scanf("%d",&rollno);
+	if(start->rollno==rollno)
+	{
+		ptr=start;
+		start=start->next;
+		free(ptr);
+		ptr=NULL;
+	}
+	else{
+		ptr=start;
+		while(ptr&&ptr->rollno!=rollno)
+		{
+			ptr1=ptr;
+			ptr=ptr->next;	
+		}
+		if(ptr)
+		{
+			ptr1->next=ptr->next;
+			free(ptr);
+			ptr=NULL;
+		}
+		else
+			printf("\nRollno not found");
+	}
+}
+
+void isLoop()
+{
+	struct student *ptr=start,*ptr1=start;
+	do{
+	ptr=ptr->next;
+	ptr1=ptr1->next;
+	if(ptr1)
+		ptr1=ptr1->next;
+	}while(ptr1!=ptr&&ptr1&&ptr);
+	if(ptr1==ptr&&ptr1)
+		printf("\nThere is a loop");
+	else
+		printf("\nNo loop");
+}
+
+void isSorted()
+{
+	struct student *ptr=start;
+	int rollno=-1,flag=0;
+	while(ptr)
+	{
+		if(ptr&&ptr->rollno<rollno)
+		{	
+			flag=1;
+			break;
+		}		
+			rollno=ptr->rollno;
+			ptr=ptr->next;
+	}
+	if(flag==1)
+		printf("\nNot Sorted");
+	else
+		printf("\nSorted");
+}
+
+void insertAtSortedPosition()
+{
+	struct student *ptr,*ptr1=start,*ptr2=NULL;
+	int age,rollno;
+	printf("\nEnter Rollno: ");
+	scanf("%d",&rollno);
+	printf("\nEnter age: ");
+	scanf("%d",&age);
+	ptr=nn(rollno,age);
+	while(ptr1&&ptr1->rollno<ptr->rollno)
+	{
+		ptr2=ptr1;
+		ptr1=ptr1->next;
+	}
+	ptr->next=ptr1;
+	if(ptr1!=start)
+		ptr2->next=ptr;
+	else
+		start=ptr;
+}
+
 int main()
 {
 	int ch;
@@ -222,7 +318,12 @@ int main()
 		printf("\n8. Sum age");
 		printf("\n9. Update by rollno.");
 		printf("\n10. Reverse");
-		printf("\n10. Exit");
+		printf("\n11. Middle");
+		printf("\n12. DeleteByRollno");
+		printf("\n13. isLoop");
+		printf("\n14. isSorted");
+		printf("\n15. Insert at sorted position");
+		printf("\n16. Exit");
 		printf("\nEnter your choice:\n");
 		scanf("%d",&ch);
 		switch(ch)
@@ -247,7 +348,17 @@ int main()
 				break;
 			case 10:reverse();
 				break;
-			case 11:return 0;
+			case 11:middle(start);
+				break;
+			case 12:deleteByRollno();
+				break;
+			case 13:isLoop();
+				break;
+			case 14:isSorted();
+				break;
+			case 15:insertAtSortedPosition();
+				break;
+			case 16:return 0;
 			default: printf("\nInvalid option");
 		}
 	}

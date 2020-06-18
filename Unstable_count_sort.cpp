@@ -1,18 +1,25 @@
 //index based sorting
+//unstable
+
 #include<stdio.h>
 
 void count_Sort(int arr[],int size,int max)
 {
-	int count[max+1];
-	int output[size],i;
-	for(i=0;i<=max;i++)
-		count[i]=0;
+	int count[max+1]={0},i,j;
+	int output[size];
 	for(i=0;i<size;i++)
 		count[arr[i]]++;
-	for(i=1;i<=max;i++)
-		count[i]=count[i]+count[i-1];
-	for(i=size-1;i>=0;i--)
-		output[--count[arr[i]]]=arr[i];
+	i=0,j=0;
+	while(i<=max)
+	{
+		if(count[i]>0)
+		{
+			arr[j++]=i;
+			count[i]--;
+		}
+		else
+			i++;
+	}
 }
 
 int main()

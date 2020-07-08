@@ -23,7 +23,7 @@ void push()
 	printf("\nEnter data: ");
 	scanf("%d",&data);
 	p1=nn(data);
-	if(p1==NULL)
+	if(top==NULL)
 		top=p1;
 	else{
 		p1->next=top;

@@ -1,0 +1,78 @@
+					header
+
+import React, { Component } from 'react';
+import {Collapse,
+        Navbar,
+        NavbarBrand, 
+        Nav,
+        NavItem,
+        NavbarToggler,
+        Modal,
+        ModalBody,
+        ModalHeader,
+        Button } from 'reactstrap';
+import {NavLink} from 'react-router-dom';
+
+class Header extends Component {
+  constructor(props)
+  {
+    super(props);
+    this.state={
+      isNavOpen:false,
+      isModalOpen:false
+    }
+  }
+
+  NavToggle=()=>{
+   this.setState({
+     isNavOpen:!this.state.isNavOpen
+   })
+  }
+
+  toggleModal=()=>{
+    this.setState({
+      isModalOpen:!this.state.isModalOpen
+    })
+  }
+
+  render() {
+    return(
+    <React.Fragment>
+      <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+        <ModalHeader toggle={this.toggleModal}>
+          Contact Us
+        </ModalHeader>
+        <ModalBody>
+          
+        </ModalBody>
+      </Modal>
+
+      <Navbar style={{boxShadow:"0px 0px 5px #353535",position:"fixed",top:"0",width:"100%",zIndex:"3000",background:"white"}} expand="md">
+        <div className="container">
+          <NavbarToggler onClick={this.NavToggle}><span className="fa fa-bars"  /></NavbarToggler>
+            <NavbarBrand className="mr-auto" href="/">
+              <img src='assets/images/logo.png' height="50" width="auto" 
+              alt='eParv' /></NavbarBrand>
+              <Collapse isOpen={this.state.isNavOpen} navbar>
+                            <Nav className="ml-auto mr-sm-4" navbar>
+                                <NavLink style={{color:"#fe9900"}} className="nav-link " to='/aboutus'><span className="fa fa-info fa-lg"></span> About Us</NavLink>
+                            </Nav>
+                            <Nav className="mr-sm-4" navbar>
+                                <NavLink style={{color:"#fe9900"}} className="nav-link" to='/contactus' onClick={this.toggleModal}><span className="fa fa-address-card fa-lg"></span> Contact Us</NavLink>
+                            </Nav>
+                            <Nav navbar>
+                                <NavItem>
+                                    <Button className="ml-auto" outline ><span className="fa fa-download fa-lg"></span> Download Now</Button>
+                                </NavItem>
+                            </Nav>
+              </Collapse>  
+        </div>
+      </Navbar>
+    </React.Fragment>
+    );
+  }
+}
+
+export default Header;
+
+

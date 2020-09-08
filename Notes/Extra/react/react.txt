@@ -12,5 +12,7 @@ git push -f origin branch_name
 
 json-server --watch db.json -p 3001 -d 2000
 
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
 #353535
 fe9900
